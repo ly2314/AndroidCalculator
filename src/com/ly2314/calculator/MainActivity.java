@@ -9,10 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
-
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +28,25 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    public void numberPressed(View view)
+    {
+    	Button b = (Button) view;
+    	String str = b.getText().toString();
+    	String shownum = PlaceholderFragment._textView.getText().toString();
+    	if (str.equals(".") && shownum.contains("."))
+    	{    		
+    		return;
+    	}
+    	if (str.equals("0") && shownum.equals("0"))
+    	{
+    		return;
+    	}
+    	if (shownum.equals("0") && !str.equals("."))
+    	{
+    		shownum = "";
+    	}
+    	PlaceholderFragment._textView.setText(shownum + str);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,6 +73,8 @@ public class MainActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+    	public static EditText _textView;
+    	
         public PlaceholderFragment() {
         }
 
@@ -58,6 +82,7 @@ public class MainActivity extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            _textView = (EditText) rootView.findViewById(R.id.textView1);
             return rootView;
         }
     }
